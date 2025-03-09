@@ -10,10 +10,6 @@
     font-family: 'Inter', serif;
 }
 
-.bg-background {
-    background-color: var(--bg-background);
-}
-
 .text-color {
     color: var(--text-primary);
 }
@@ -24,7 +20,7 @@
 
 body {
     background-color: var(--bg-background);
-    color: var(--text-color);
+    color: var(--text-primary);
     overflow-x: hidden;
 }
 
@@ -32,6 +28,11 @@ nav {
     transform: translateY(-100%);
     opacity: 0;
     transition: all 0.6s ease-in;
+    z-index: 100;
+}
+
+.navbar-main {
+    z-index: 102;
 }
 
 .navbar-visible {
@@ -69,6 +70,36 @@ nav {
     width: 40px;
 }
 
+.navbar-burger-btn {
+    border: none;
+    background-color: var(--bg-background);
+    width: 40px;
+    height: 40px;
+}
+
+#burger-icon {
+    color: var(--text-secondary);
+    font-size: 36px;
+}
+
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -150%;
+    transition: all 0.7s ease-in;
+    width: 100%;
+    height: 100dvh;
+    background-color: var(--bg-background);
+    z-index: 101;
+}
+
+.mobile-menu-active {
+    right: 0;
+}
+
+.mobile-menu .nav-link {
+    font-size: 26px;
+}
 
 header {
     opacity: 0;
@@ -86,6 +117,11 @@ header {
     border: solid 1px var(--text-primary);
     border-radius: 0;
     background-color: #000000;
+}
+
+.btn-genres:hover {
+    background-color: var(--text-primary);
+    color: var(--bg-background);
 }
 
 .btn-views {
@@ -169,7 +205,7 @@ section {
 }
 
 .card-genre p {
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .swiper {
@@ -192,8 +228,8 @@ section {
 .swiper-slide:hover .movie-card {
     transform: scale(1.1) translateY(-15%);
     clip-path: inset(-10% -10% -10% -10%);
-    -webkit-box-shadow: 4px 4px 6px 0px rgba(180, 180, 180, 1);
-    -moz-box-shadow: 4px 4px 6px 0px rgba(180, 180, 180, 1);
+    -webkit-box-shadow: 0px 0px 16px 4px rgb(116, 116, 116);
+    -moz-box-shadow: 0px 0px 16px 4px rgb(116, 116, 116);
     box-shadow: 0px 0px 16px 4px rgb(116, 116, 116);
 }
 
@@ -201,8 +237,20 @@ section {
     font-size: 24px;
 }
 
-footer {
+.icon-social:hover {
+    transform: scale(1.1);
+}
+
+.footer-section {
     font-size: 14px;
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 0.6s ease-in-out;
+}
+
+.footer-visible {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .footer-btn {
@@ -214,4 +262,37 @@ footer {
 .footer-btn:hover {
     background-color: var(--text-secondary);
     color: var(--bg-background);
+}
+
+
+@media (min-width: 640px) and (max-width: 686px) {
+    .card-btn {
+        width: 22px;
+        height: 22px;
+    }
+
+    .card-btn .bi {
+        font-size: 12px;
+    }
+
+    .play-btn {
+        background-color: #fcfcfc;
+        color: #000000;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1000px) {
+    .card-btn {
+        width: 22px;
+        height: 22px;
+    }
+
+    .card-btn .bi {
+        font-size: 12px;
+    }
+
+    .play-btn {
+        background-color: #fcfcfc;
+        color: #000000;
+    }
 }

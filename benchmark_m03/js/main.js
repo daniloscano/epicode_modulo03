@@ -184,6 +184,9 @@ const movies = [
 const navbar = document.querySelector('.navbar');
 const header = document.querySelector('header');
 
+const burgerBtn = document.querySelector('.navbar-burger-btn');
+const mobileMenu = document.querySelector('.mobile-menu');
+
 const randomizeArray = (array) => { 
     return array.sort(() => Math.random() - 0.5); 
 };
@@ -199,6 +202,8 @@ const watchAgainSection = document.querySelector('#watch-again-section');
 const newReleasesSection = document.querySelector('#new-releases-section');
 const dramaSection = document.querySelector('#drama-section');
 const thrillerSection = document.querySelector('#thriller-section');
+const footer = document.querySelector('footer');
+const footerSection = document.querySelector('.footer-section');
 
 const trendingSwiper = document.querySelector('#trending-swiper');
 const watchAgainSwiper = document.querySelector('#watch-again-swiper');
@@ -255,7 +260,7 @@ const createCardContent = (info, genre) => {
     buttonsContainer.classList.add('buttons-container', 'd-flex', 'justify-content-between', 'align-items-center', 'pb-3');
 
     const leftButtons = document.createElement('div');
-    leftButtons.classList.add('btns-left', 'd-flex', 'align-items-center', 'gap-2');
+    leftButtons.classList.add('btns-left', 'd-flex', 'align-items-center', 'gap-1');
 
     const playButton = document.createElement('button');
     playButton.classList.add('card-btn', 'play-btn');
@@ -321,7 +326,7 @@ const createSection = (moviesArray, section) => {
     });
 };
 
-const observer = new IntersectionObserver((entries, observer) => {
+const sectionObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('section-visible');
@@ -331,6 +336,18 @@ const observer = new IntersectionObserver((entries, observer) => {
 }, {
     root: null,
     threshold: 0.3,
+});
+
+const footerObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            footerSection.classList.add('footer-visible');
+            observer.unobserve(entry.target);
+        };
+    });
+}, {
+    root: null,
+    threshold: 0.6,
 });
 
 const swiper = new Swiper('.swiper', {
@@ -345,7 +362,7 @@ const swiper = new Swiper('.swiper', {
             spaceBetween: '8px',
         },
         992: {
-            slidesPerView: 5,
+            slidesPerView: 6,
             spaceBetween: '8px',
         },
     },
@@ -362,16 +379,22 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout( () => {
         trendingSection.classList.add('section-visible');
-        createSection(trendingMovies, trendingSwiper);
 
+        createSection(trendingMovies, trendingSwiper);
         createSection(watchedMovies, watchAgainSwiper);
         createSection(newReleasedMovies, newReleasesSwiper);
         createSection(dramaMovies, dramaSwiper);
         createSection(thrillerMovies, thrillerSwiper);
 
-        observer.observe(watchAgainSection);
-        observer.observe(newReleasesSection);
-        observer.observe(dramaSection);
-        observer.observe(thrillerSection);
+        sectionObserver.observe(watchAgainSection);
+        sectionObserver.observe(newReleasesSection);
+        sectionObserver.observe(dramaSection);
+        sectionObserver.observe(thrillerSection);
+
+        footerObserver.observe(footer);
     }, 2600);
+});
+
+burgerBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('mobile-menu-active');
 });
